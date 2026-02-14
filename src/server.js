@@ -5,6 +5,8 @@ import cors from 'cors';
 import { logger } from './middleware/logger.js';
 import cookieParser from 'cookie-parser';
 
+import authRoutes from './routes/authRoutes.js';
+
 import { notFoundHandler } from './middleware/notFoundHandler.js';
 import { errors } from 'celebrate';
 import { errorHandler } from './middleware/errorHandler.js';
@@ -18,6 +20,8 @@ app.use(logger);
 app.use(express.json());
 app.use(cors());
 app.use(cookieParser());
+
+app.use(authRoutes);
 
 app.use(notFoundHandler);
 app.use(errors());
