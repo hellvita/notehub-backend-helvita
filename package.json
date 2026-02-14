@@ -1,0 +1,31 @@
+{
+  "name": "notehub-backend-helvita",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hellvita/notehub-backend-helvita.git"
+  },
+  "keywords": [],
+  "author": "hellvita <seredaolga03@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hellvita/notehub-backend-helvita/issues"
+  },
+  "homepage": "https://github.com/hellvita/notehub-backend-helvita#readme",
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.0.0",
+    "globals": "^17.3.0",
+    "nodemon": "^3.1.11"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
