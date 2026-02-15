@@ -16,8 +16,14 @@ const noteSchema = new Schema(
   {
     timestamps: true,
     versionKey: false,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
   },
 );
+
+noteSchema.virtual('id').get(function () {
+  return this._id.toString();
+});
 
 noteSchema.index(
   { title: 'text', content: 'text' },

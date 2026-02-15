@@ -23,8 +23,14 @@ const userSchema = new Schema(
   {
     timestamps: true,
     versionKey: false,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
   },
 );
+
+userSchema.virtual('id').get(function () {
+  return this._id.toString();
+});
 
 userSchema.pre('save', function () {
   if (!this.username) {

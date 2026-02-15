@@ -11,7 +11,13 @@ const sessionSchema = new Schema(
   {
     timestamps: true,
     versionKey: false,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
   },
 );
+
+sessionSchema.virtual('id').get(function () {
+  return this._id.toString();
+});
 
 export const Session = model('Session', sessionSchema);
