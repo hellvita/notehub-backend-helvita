@@ -1,4 +1,5 @@
 import createHttpError from 'http-errors';
+import bcrypt from 'bcrypt';
 import { User } from '../models/user.js';
 import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
 
@@ -13,6 +14,12 @@ export const getUser = async (req, res) => {
 };
 
 export const updateUser = async (req, res) => {
+  if (req.body.password) {
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+
+    req.body.password = hashedPassword;
+  }
+
   const user = await User.findOneAndUpdate({ _id: req.user._id }, req.body, {
     new: true,
   });

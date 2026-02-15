@@ -9,7 +9,7 @@ export const connectMongoDB = async () => {
     console.log('✅ MongoDB connection established successfully');
 
     await Note.syncIndexes();
-    console.log('ℹ️ Indexes synced successfully');
+    console.log('ℹ️  Indexes synced successfully');
   } catch (error) {
     console.error('❌ Failed to connect to MongoDB:', error.message);
 
