@@ -1,7 +1,4 @@
 import { model, Schema } from 'mongoose';
-import path from 'node:path';
-
-const avatarPath = path.join('src', 'public', 'default-avatar.jpg');
 
 const userSchema = new Schema(
   {
@@ -17,7 +14,8 @@ const userSchema = new Schema(
     avatar: {
       type: String,
       required: false,
-      default: avatarPath,
+      default:
+        'https://res.cloudinary.com/dtzkjc68z/image/upload/v1771176027/notehub-helvita/avatars/default/nqbgcatljocysnj7jviq.jpg',
     },
   },
   {
