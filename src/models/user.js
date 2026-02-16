@@ -1,4 +1,5 @@
 import { model, Schema } from 'mongoose';
+import { DEFAULT_AVATAR } from '../constants/defaultFiles.js';
 
 const userSchema = new Schema(
   {
@@ -14,8 +15,7 @@ const userSchema = new Schema(
     avatar: {
       type: String,
       required: false,
-      default:
-        'https://res.cloudinary.com/dtzkjc68z/image/upload/v1771176027/notehub-helvita/avatars/default/nqbgcatljocysnj7jviq.jpg',
+      default: DEFAULT_AVATAR,
     },
   },
   {

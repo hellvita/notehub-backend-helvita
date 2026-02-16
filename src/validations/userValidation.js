@@ -5,5 +5,6 @@ export const updateUserSchema = {
     email: Joi.string().email().lowercase(),
     password: Joi.string().min(8),
     username: Joi.string().min(1).max(40),
+    avatar: Joi.string(),
   }),
 };
