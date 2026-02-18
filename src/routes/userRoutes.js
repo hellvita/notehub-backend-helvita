@@ -24,6 +24,4 @@ router.patch(
   controller.updateUserAvatar,
 );
 
-router.delete('/users/me', authenticate, controller.deleteUser);
-
 export default router;

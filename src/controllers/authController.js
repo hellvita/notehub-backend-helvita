@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 import { User } from '../models/user.js';
 import { createSession, setSessionCookies } from '../services/auth.js';
 import { Session } from '../models/session.js';
+import { Note } from '../models/note.js';
 
 export const registerUser = async (req, res) => {
   const { email, password } = req.body;
@@ -96,4 +97,26 @@ export const getUserSession = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+};
+
+export const deleteUser = async (req, res) => {
+  const { sessionId } = req.cookies;
+
+  await User.findByIdAndDelete(req.user._id);
+
+  const userNotes = await Note.find({ userId: req.user._id });
+
+  userNotes.forEach(async (note) => {
+    await Note.findByIdAndDelete(note._id);
+  });
+
+  if (sessionId) {
+    await Session.deleteOne({ _id: sessionId });
+  }
+
+  res.clearCookie('sessionId');
+  res.clearCookie('accessToken');
+  res.clearCookie('refreshToken');
+
+  res.status(204).send();
 };

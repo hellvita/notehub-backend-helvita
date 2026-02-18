@@ -2,7 +2,6 @@ import createHttpError from 'http-errors';
 import bcrypt from 'bcrypt';
 import { User } from '../models/user.js';
 import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
-import { Session } from '../models/session.js';
 
 export const getUser = async (req, res) => {
   const user = await User.findById(req.user._id);
@@ -47,20 +46,4 @@ export const updateUserAvatar = async (req, res) => {
   );
 
   res.status(200).json({ url: user.avatar });
-};
-
-export const deleteUser = async (req, res) => {
-  const { sessionId } = req.cookies;
-
-  await User.findByIdAndDelete(req.user._id);
-
-  if (sessionId) {
-    await Session.deleteOne({ _id: sessionId });
-  }
-
-  res.clearCookie('sessionId');
-  res.clearCookie('accessToken');
-  res.clearCookie('refreshToken');
-
-  res.status(204).send();
 };

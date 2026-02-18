@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { celebrate } from 'celebrate';
 
 import * as validation from '../validations/authValidation.js';
+import { authenticate } from '../middleware/authenticate.js';
 import * as controller from '../controllers/authController.js';
 
 const router = Router();
@@ -21,5 +22,7 @@ router.post(
 router.post('/auth/logout', controller.logoutUser);
 
 router.get('/auth/session', controller.getUserSession);
+
+router.delete('/users/me', authenticate, controller.deleteUser);
 
 export default router;
