@@ -76,6 +76,16 @@ export const updateNote = async (req, res) => {
   res.status(200).json(note);
 };
 
+export const getDraft = async (req, res) => {
+  const draft = await Draft.findOne({ userId: req.user._id });
+
+  if (!draft) {
+    throw createHttpError(404, 'Draft not found');
+  }
+
+  res.status(200).json(draft);
+};
+
 export const updateDraft = async (req, res) => {
   const draft = await Draft.findOneAndUpdate(
     { userId: req.user._id },

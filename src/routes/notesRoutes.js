@@ -39,9 +39,12 @@ router.patch(
   controller.updateNote,
 );
 
+router.use('/note-draft', authenticate);
+
+router.get('/note-draft', controller.getDraft);
+
 router.patch(
   '/note-draft',
-  authenticate,
   celebrate(validation.updateDraftSchema),
   controller.updateDraft,
 );
