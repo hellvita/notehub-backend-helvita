@@ -17,6 +17,7 @@ const userSchema = new Schema(
       required: false,
       default: DEFAULT_AVATAR,
     },
+    notesAmount: { type: Number, required: false, default: 0 },
   },
   {
     timestamps: true,
