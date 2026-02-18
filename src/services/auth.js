@@ -1,5 +1,5 @@
 import crypto from 'crypto';
-import { FIFTEEN_MINUTES, ONE_DAY } from '../constants/time.js';
+import { TWENTY_MINUTES, ONE_DAY } from '../constants/time.js';
 import { Session } from '../models/session.js';
 
 export const createSession = async (userId) => {
@@ -10,7 +10,7 @@ export const createSession = async (userId) => {
     userId,
     accessToken,
     refreshToken,
-    accessTokenValidUntil: new Date(Date.now() + FIFTEEN_MINUTES),
+    accessTokenValidUntil: new Date(Date.now() + TWENTY_MINUTES),
     refreshTokenValidUntil: new Date(Date.now() + ONE_DAY),
   });
 };
@@ -20,7 +20,7 @@ export const setSessionCookies = async (res, session) => {
     httpOnly: true,
     secure: true,
     sameSite: 'none',
-    maxAge: FIFTEEN_MINUTES,
+    maxAge: TWENTY_MINUTES,
   });
 
   res.cookie('refreshToken', session.refreshToken, {
