@@ -1,4 +1,5 @@
 import { Note } from '../models/note.js';
+import { Draft } from '../models/draft.js';
 import createHttpError from 'http-errors';
 
 export const getAllNotes = async (req, res) => {
@@ -73,4 +74,18 @@ export const updateNote = async (req, res) => {
   }
 
   res.status(200).json(note);
+};
+
+export const updateDraft = async (req, res) => {
+  const draft = await Draft.findOneAndUpdate(
+    { userId: req.user._id },
+    req.body,
+    { new: true },
+  );
+
+  if (!draft) {
+    throw createHttpError(404, 'Draft not found');
+  }
+
+  res.status(200).json(draft);
 };

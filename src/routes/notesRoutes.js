@@ -39,4 +39,11 @@ router.patch(
   controller.updateNote,
 );
 
+router.patch(
+  '/note-draft',
+  authenticate,
+  celebrate(validation.updateDraftSchema),
+  controller.updateDraft,
+);
+
 export default router;

@@ -37,3 +37,11 @@ export const updateNoteSchema = {
     tag: Joi.string().valid(...TAGS),
   }).min(1),
 };
+
+export const updateDraftSchema = {
+  [Segments.BODY]: Joi.object({
+    title: Joi.string().trim().allow(''),
+    content: Joi.string().trim().allow(''),
+    tag: Joi.string().valid(...TAGS),
+  }).min(1),
+};
