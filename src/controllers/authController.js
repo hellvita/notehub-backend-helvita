@@ -4,6 +4,7 @@ import { User } from '../models/user.js';
 import { createSession, setSessionCookies } from '../services/auth.js';
 import { Session } from '../models/session.js';
 import { Note } from '../models/note.js';
+import { Draft } from '../models/draft.js';
 
 export const registerUser = async (req, res) => {
   const { email, password } = req.body;
@@ -16,6 +17,8 @@ export const registerUser = async (req, res) => {
   const hashedPassword = await bcrypt.hash(password, 10);
 
   const newUser = await User.create({ email, password: hashedPassword });
+
+  await Draft.create({ userId: newUser._id });
 
   const newSession = await createSession(newUser._id);
 
@@ -109,6 +112,8 @@ export const deleteUser = async (req, res) => {
   userNotes.forEach(async (note) => {
     await Note.findByIdAndDelete(note._id);
   });
+
+  await Draft.findOneAndDelete({ userId: req.user._id });
 
   if (sessionId) {
     await Session.deleteOne({ _id: sessionId });
