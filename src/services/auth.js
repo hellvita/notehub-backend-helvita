@@ -2,11 +2,22 @@ import crypto from 'crypto';
 import { TWENTY_MINUTES, ONE_DAY } from '../constants/time.js';
 import { Session } from '../models/session.js';
 
-export const getSession = async (sessionId, refreshToken) => {
-  const session = await Session.findOne({
-    _id: sessionId,
-    refreshToken,
-  });
+export const getSession = async ({ sessionId, accessToken, refreshToken }) => {
+  const query = {};
+
+  if (sessionId) {
+    query._id = sessionId;
+  }
+
+  if (accessToken) {
+    query.accessToken = accessToken;
+  }
+
+  if (refreshToken) {
+    query.refreshToken = refreshToken;
+  }
+
+  const session = await Session.findOne(query);
 
   return session;
 };

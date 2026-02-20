@@ -57,7 +57,7 @@ export const getUserSessionController = async (req, res, next) => {
       throw createHttpError(401, 'Missing session credentials');
     }
 
-    const session = await authService.getSession(sessionId, refreshToken);
+    const session = await authService.getSession({ sessionId, refreshToken });
     if (!session) {
       throw createHttpError(401, 'Session not found');
     }
