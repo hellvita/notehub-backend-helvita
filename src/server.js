@@ -5,9 +5,7 @@ import cors from 'cors';
 import { logger } from './middleware/logger.js';
 import cookieParser from 'cookie-parser';
 
-import authRoutes from './routes/authRoutes.js';
-import userRoutes from './routes/userRoutes.js';
-import notesRoutes from './routes/notesRoutes.js';
+import router from './routes/index.js';
 
 import { notFoundHandler } from './middleware/notFoundHandler.js';
 import { errors } from 'celebrate';
@@ -22,9 +20,7 @@ export const startServer = () => {
   app.use(cors());
   app.use(cookieParser());
 
-  app.use(authRoutes);
-  app.use(userRoutes);
-  app.use(notesRoutes);
+  app.use(router);
 
   app.use(notFoundHandler);
   app.use(errors());
