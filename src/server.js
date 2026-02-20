@@ -1,5 +1,8 @@
 import 'dotenv/config';
 
+import { getEnv } from './helpers/getEnv.js';
+import { ENV_VARS } from './constants/env.js';
+
 import express from 'express';
 import cors from 'cors';
 import { logger } from './middleware/logger.js';
@@ -13,7 +16,7 @@ import { errorHandler } from './middleware/errorHandler.js';
 
 export const startServer = () => {
   const app = express();
-  const PORT = Number.parseInt(process.env.PORT) || 3000;
+  const PORT = Number.parseInt(getEnv(ENV_VARS.app.PORT)) || 3000;
 
   app.use(logger);
   app.use(express.json());
