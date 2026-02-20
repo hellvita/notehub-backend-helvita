@@ -18,7 +18,7 @@ export const createUser = async (payload) => {
 };
 
 export const getUserById = async (userId) => {
-  const user = await User.findById({ userId });
+  const user = await User.findById(userId);
 
   return user;
 };
