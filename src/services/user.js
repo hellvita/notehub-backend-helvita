@@ -31,7 +31,7 @@ export const getUserByEmail = async (email) => {
 
 export const updateUserById = async (userId, payload) => {
   const user = await User.findByIdAndUpdate(userId, payload, {
-    new: true,
+    returnDocument: 'after',
   });
 
   return user;

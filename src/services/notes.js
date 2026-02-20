@@ -54,7 +54,7 @@ export const createNote = async (userId, payload) => {
 
 export const updateNoteById = async (noteId, userId, payload) => {
   const note = await Note.findOneAndUpdate({ _id: noteId, userId }, payload, {
-    new: true,
+    returnDocument: 'after',
   });
 
   return note;
@@ -89,7 +89,7 @@ export const createDraft = async (userId) => {
 
 export const updateDraftById = async (userId, payload) => {
   const draft = await Draft.findOneAndUpdate({ userId }, payload, {
-    new: true,
+    returnDocument: 'after',
   });
 
   return draft;
