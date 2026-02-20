@@ -4,24 +4,26 @@ import { celebrate } from 'celebrate';
 import { authenticate } from '../middleware/authenticate.js';
 import { updateUserSchema } from '../validations/userValidation.js';
 import { upload } from '../middleware/multer.js';
-import * as controller from '../controllers/userController.js';
+import * as userControllers from '../controllers/userController.js';
 
 const router = Router();
 
-router.get('/users/me', authenticate, controller.getUser);
+router.use('/users/me', authenticate);
+
+router.get('/users/me', userControllers.getUserController);
 
 router.patch(
   '/users/me',
-  authenticate,
   celebrate(updateUserSchema),
-  controller.updateUser,
+  userControllers.updateUserController,
 );
 
 router.patch(
   '/users/me/avatar',
-  authenticate,
   upload.single('avatar'),
-  controller.updateUserAvatar,
+  userControllers.updateUserAvatarController,
 );
+
+router.delete('/users/me', userControllers.deleteUserController);
 
 export default router;

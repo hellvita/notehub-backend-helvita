@@ -1,9 +1,9 @@
 import { Router } from 'express';
 import { celebrate } from 'celebrate';
 
-import * as validation from '../validations/notesValidation.js';
+import * as notesValidation from '../validations/notesValidation.js';
 import { authenticate } from '../middleware/authenticate.js';
-import * as controller from '../controllers/notesController.js';
+import * as notesControllers from '../controllers/notesController.js';
 
 const router = Router();
 
@@ -11,42 +11,42 @@ router.use('/notes', authenticate);
 
 router.get(
   '/notes',
-  celebrate(validation.getAllNotesSchema),
-  controller.getAllNotes,
+  celebrate(notesValidation.getAllNotesSchema),
+  notesControllers.getAllNotesController,
 );
 
 router.post(
   '/notes',
-  celebrate(validation.createNoteSchema),
-  controller.createNote,
+  celebrate(notesValidation.createNoteSchema),
+  notesControllers.createNoteController,
 );
 
 router.get(
   '/notes/:noteId',
-  celebrate(validation.noteIdSchema),
-  controller.getNoteById,
+  celebrate(notesValidation.noteIdSchema),
+  notesControllers.getNoteByIdController,
 );
 
 router.delete(
   '/notes/:noteId',
-  celebrate(validation.noteIdSchema),
-  controller.deleteNote,
+  celebrate(notesValidation.noteIdSchema),
+  notesControllers.deleteNoteController,
 );
 
 router.patch(
   '/notes/:noteId',
-  celebrate(validation.updateNoteSchema),
-  controller.updateNote,
+  celebrate(notesValidation.updateNoteSchema),
+  notesControllers.updateNoteController,
 );
 
 router.use('/note-draft', authenticate);
 
-router.get('/note-draft', controller.getDraft);
+router.get('/note-draft', notesControllers.getDraftController);
 
 router.patch(
   '/note-draft',
-  celebrate(validation.updateDraftSchema),
-  controller.updateDraft,
+  celebrate(notesValidation.updateDraftSchema),
+  notesControllers.updateDraftController,
 );
 
 export default router;

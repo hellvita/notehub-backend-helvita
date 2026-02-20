@@ -1,28 +1,25 @@
 import { Router } from 'express';
 import { celebrate } from 'celebrate';
 
-import * as validation from '../validations/authValidation.js';
-import { authenticate } from '../middleware/authenticate.js';
-import * as controller from '../controllers/authController.js';
+import * as authValidation from '../validations/authValidation.js';
+import * as authControllers from '../controllers/authController.js';
 
 const router = Router();
 
 router.post(
   '/auth/register',
-  celebrate(validation.registerUserSchema),
-  controller.registerUser,
+  celebrate(authValidation.registerUserSchema),
+  authControllers.registerUserController,
 );
 
 router.post(
   '/auth/login',
-  celebrate(validation.loginUserSchema),
-  controller.loginUser,
+  celebrate(authValidation.loginUserSchema),
+  authControllers.loginUserController,
 );
 
-router.post('/auth/logout', controller.logoutUser);
+router.post('/auth/logout', authControllers.logoutUserController);
 
-router.get('/auth/session', controller.getUserSession);
-
-router.delete('/users/me', authenticate, controller.deleteUser);
+router.get('/auth/session', authControllers.getUserSessionController);
 
 export default router;

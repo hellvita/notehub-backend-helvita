@@ -1,36 +1,25 @@
 import createHttpError from 'http-errors';
 import bcrypt from 'bcrypt';
-import { User } from '../models/user.js';
-import { createSession, setSessionCookies } from '../services/auth.js';
-import { Session } from '../models/session.js';
-import { Note } from '../models/note.js';
-import { Draft } from '../models/draft.js';
+import * as authService from '../services/auth.js';
+import { createUser, getUserByEmail } from '../services/user.js';
+import { createDraft } from '../services/notes.js';
 
-export const registerUser = async (req, res) => {
-  const { email, password } = req.body;
+export const registerUserController = async (req, res) => {
+  const newUser = await createUser(req.body);
 
-  const isEmailInUse = await User.findOne({ email });
-  if (isEmailInUse) {
-    throw createHttpError(400, 'Email in use');
-  }
+  await createDraft(newUser._id);
 
-  const hashedPassword = await bcrypt.hash(password, 10);
+  const newSession = await authService.createSession(newUser._id);
 
-  const newUser = await User.create({ email, password: hashedPassword });
-
-  await Draft.create({ userId: newUser._id });
-
-  const newSession = await createSession(newUser._id);
-
-  setSessionCookies(res, newSession);
+  authService.setSessionCookies(res, newSession);
 
   res.status(201).json(newUser);
 };
 
-export const loginUser = async (req, res) => {
+export const loginUserController = async (req, res) => {
   const { email, password } = req.body;
 
-  const user = await User.findOne({ email });
+  const user = await getUserByEmail(email);
   if (!user) {
     throw createHttpError(401, 'Invalid credentials');
   }
@@ -40,29 +29,27 @@ export const loginUser = async (req, res) => {
     throw createHttpError(401, 'Invalid credentials');
   }
 
-  await Session.deleteOne({ userId: user._id });
-  const newSession = await createSession(user._id);
+  await authService.deleteSession({ userId: user._id });
+  const newSession = await authService.createSession(user._id);
 
-  setSessionCookies(res, newSession);
+  authService.setSessionCookies(res, newSession);
 
   res.status(200).json(user);
 };
 
-export const logoutUser = async (req, res) => {
+export const logoutUserController = async (req, res) => {
   const { sessionId } = req.cookies;
 
   if (sessionId) {
-    await Session.deleteOne({ _id: sessionId });
+    await authService.deleteSession({ sessionId });
   }
 
-  res.clearCookie('sessionId');
-  res.clearCookie('accessToken');
-  res.clearCookie('refreshToken');
+  authService.clearSessionCookies(res);
 
   res.status(204).send();
 };
 
-export const getUserSession = async (req, res, next) => {
+export const getUserSessionController = async (req, res, next) => {
   try {
     const { sessionId, refreshToken } = req.cookies;
 
@@ -70,11 +57,7 @@ export const getUserSession = async (req, res, next) => {
       throw createHttpError(401, 'Missing session credentials');
     }
 
-    const session = await Session.findOne({
-      _id: sessionId,
-      refreshToken: refreshToken,
-    });
-
+    const session = await authService.getSession(sessionId, refreshToken);
     if (!session) {
       throw createHttpError(401, 'Session not found');
     }
@@ -86,13 +69,10 @@ export const getUserSession = async (req, res, next) => {
       throw createHttpError(401, 'Session token expired');
     }
 
-    await Session.deleteOne({
-      _id: sessionId,
-      refreshToken: refreshToken,
-    });
+    await authService.deleteSession({ userId: session.userId });
 
-    const newSession = await createSession(session.userId);
-    await setSessionCookies(res, newSession);
+    const newSession = await authService.createSession(session.userId);
+    await authService.setSessionCookies(res, newSession);
 
     return res
       .status(200)
@@ -100,28 +80,4 @@ export const getUserSession = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-};
-
-export const deleteUser = async (req, res) => {
-  const { sessionId } = req.cookies;
-
-  await User.findByIdAndDelete(req.user._id);
-
-  const userNotes = await Note.find({ userId: req.user._id });
-
-  userNotes.forEach(async (note) => {
-    await Note.findByIdAndDelete(note._id);
-  });
-
-  await Draft.findOneAndDelete({ userId: req.user._id });
-
-  if (sessionId) {
-    await Session.deleteOne({ _id: sessionId });
-  }
-
-  res.clearCookie('sessionId');
-  res.clearCookie('accessToken');
-  res.clearCookie('refreshToken');
-
-  res.status(204).send();
 };
