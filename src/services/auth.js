@@ -25,10 +25,10 @@ export const createSession = async (userId) => {
 };
 
 export const deleteSession = async ({ sessionId, userId }) => {
-  const query = { _id: sessionId };
+  const query = {};
 
   if (sessionId) {
-    query.sessionId = sessionId;
+    query._id = sessionId;
   }
 
   if (userId) {
