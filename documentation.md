@@ -235,6 +235,42 @@ _No parameters._
 
 </details>
 
+## Logout User
+
+Logout the current user.
+
+```
+POST /auth/logout
+```
+
+### Parameters
+
+_No parameters._
+
+### Request Body
+
+_No request body._
+
+### Responses
+
+| Status | Description             |
+| ------ | ----------------------- |
+| `204`  | Successfully logged out |
+| `400`  | Missing session data    |
+
+<details>
+<summary><code>204</code> - Success</summary>
+
+#### Headers:
+
+| Name         | Type   | Description                                                  |
+| ------------ | ------ | ------------------------------------------------------------ |
+| `Set-Cookie` | string | Clears `sessionId`, `accessToken` and `refreshToken` cookies |
+
+</details>
+
+---
+
 ---
 
 _Last updated: 2026-02-21_
