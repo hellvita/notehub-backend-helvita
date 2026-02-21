@@ -38,4 +38,46 @@ Operations on the notes collection
 
 ---
 
+---
+
+## Get User Session
+
+Refresh the current session tokens.
+
+```
+GET /auth/session
+```
+
+### Parameters
+
+_No parameters._
+
+### Request Body
+
+_No request body._
+
+### Responses
+
+| Status | Description                             |
+| ------ | --------------------------------------- |
+| `200`  | Tokens refreshed successfully           |
+| `401`  | Unauthorized - missing or invalid token |
+
+<details>
+<summary><code>200</code> - Success</summary>
+
+```json
+{
+  "success": true,
+  "message": "Session refreshed"
+}
+```
+
+## </details>
+
+---
+---
+
+
+
 _Last updated: 2026-02-21_
