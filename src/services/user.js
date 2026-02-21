@@ -7,7 +7,7 @@ export const createUser = async (payload) => {
 
   const isEmailInUse = await User.findOne({ email });
   if (isEmailInUse) {
-    throw createHttpError(400, 'Email in use');
+    throw createHttpError(409, 'Email in use');
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);
