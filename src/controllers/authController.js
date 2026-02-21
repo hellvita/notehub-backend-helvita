@@ -40,9 +40,11 @@ export const loginUserController = async (req, res) => {
 export const logoutUserController = async (req, res) => {
   const { sessionId } = req.cookies;
 
-  if (sessionId) {
-    await authService.deleteSession({ sessionId });
+  if (!sessionId) {
+    throw createHttpError(400, 'No active session found');
   }
+
+  await authService.deleteSession({ sessionId });
 
   authService.clearSessionCookies(res);
 
