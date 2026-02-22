@@ -273,4 +273,49 @@ _No request body._
 
 ---
 
-_Last updated: 2026-02-21_
+## Get User
+
+Get the current user profile.
+
+```
+GET /users/me
+```
+
+### Parameters
+
+_No parameters._
+
+### Request Body
+
+_No request body._
+
+### Responses
+
+| Status | Description                                   |
+| ------ | --------------------------------------------- |
+| `200`  | Successfully fetched user profile             |
+| `401`  | Unauthorized - invalid or missing credentials |
+
+<details>
+<summary><code>200</code> - Success</summary>
+
+```json
+{
+  "_id": "0000a0000aaaaa0000aa0000",
+  "id": "0000a0000aaaaa0000aa0000"
+  "email": "example@mail.com",
+  "username": "example",
+  "avatar": "https://res.cloudinary.com/dtzkjc68z/image/upload/v1771176027/notehub-helvita/avatars/default/nqbgcatljocysnj7jviq.jpg",
+  "notesAmount": 0,
+  "createdAt": "2026-02-21T17:16:54.759Z",
+  "updatedAt": "2026-02-21T17:16:54.759Z",
+}
+```
+
+## </details>
+
+---
+
+---
+
+_Last updated: 2026-02-22_
