@@ -243,6 +243,8 @@ _No parameters._
 
 </details>
 
+---
+
 ## Logout User
 
 Logout the current user.
@@ -323,6 +325,8 @@ _No request body._
 ```
 
 </details>
+
+---
 
 ## Update User
 
@@ -406,6 +410,8 @@ _No parameters._
 
 </details>
 
+---
+
 ## Update User Avatar
 
 Update the avatar of the current user profile.
@@ -472,6 +478,8 @@ curl -X POST https://notehub-helvita-api.onrender.com/users/me/avatar \
 ```
 
 </details>
+
+---
 
 ## Delete User
 
@@ -561,6 +569,8 @@ _No request body._
 
 </details>
 
+---
+
 ## Get Note
 
 Get a single note by ID.
@@ -634,6 +644,8 @@ _No request body._
 
 </details>
 
+---
+
 ## Get Note Draft
 
 Get draft of the unsaved user note.
@@ -663,7 +675,6 @@ _No request body._
 
 ```json
 {
-
   "title": "New note",
   "content": "I will fill it later...",
   "tag": "Todo",
@@ -679,6 +690,8 @@ _No request body._
 ```
 
 </details>
+
+---
 
 ## Create Note
 
@@ -757,6 +770,8 @@ _No parameters._
 ```
 
 </details>
+
+---
 
 ## Update Note
 
@@ -839,6 +854,90 @@ curl -X PATCH https://notehub-helvita-api.onrender.com/notes/3333d3333ddddd3333d
       "source": "body",
       "keys": [""],
       "message": "\"value\" must have at least 1 key"
+    }
+  }
+}
+```
+
+</details>
+
+---
+
+## Update Note Draft
+
+Update draft of the unsaved user note.
+
+```
+PATCH /note-draft
+```
+
+### Parameters
+
+_No parameters._
+
+### Request Body
+
+**Content-Type:** `application/json`
+
+| Field     | Type   | Required | Description                                                                                                                         |
+| --------- | ------ | -------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| `title`   | string | ❌\*     | Note title                                                                                                                          |
+| `content` | string | ❌\*     | Note content                                                                                                                        |
+| `tag`     | string | ❌\*     | Note tag (Available values: `Todo`, `Work`, `Personal`, `Meeting`, `Shopping`, `Ideas`, `Travel`, `Finance`, `Health`, `Important`) |
+
+|                                      |
+| ------------------------------------ |
+| **_\* at least one field required_** |
+
+```json
+{
+  "tag": "Ideas"
+}
+```
+
+### Responses
+
+| Status | Description                                   |
+| ------ | --------------------------------------------- |
+| `200`  | Successfully updated draft                    |
+| `400`  | Validation error - invalid or missing fields  |
+| `401`  | Unauthorized - invalid or missing credentials |
+| `404`  | Not found - invalid user ID                   |
+
+<details>
+<summary><code>200</code> - Success</summary>
+
+```json
+{
+  "title": "New note",
+  "content": "I will fill it later...",
+  "tag": "Ideas",
+
+  "createdAt": "2026-02-22T13:18:59.160Z",
+  "updatedAt": "2026-02-22T18:34:58.889Z",
+
+  "_id": "2222c2222ccccc2222cc2222",
+  "id": "2222c2222ccccc2222cc2222"
+
+  "userId": "0000a0000aaaaa0000aa0000",
+}
+```
+
+</details>
+
+<details>
+<summary><code>400</code> - Validation Error</summary>
+
+```json
+{
+  "statusCode": 400,
+  "error": "Bad Request",
+  "message": "Validation failed",
+  "validation": {
+    "body": {
+      "source": "body",
+      "keys": ["anotherField"],
+      "message": "\"anotherField\" is not allowed"
     }
   }
 }
