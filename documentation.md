@@ -500,4 +500,69 @@ _No request body._
 
 ---
 
+## Get Notes
+
+Get all notes with optional search, filter and pagination.
+
+```
+GET /notes
+```
+
+### Parameters
+
+| Name        | In    | Type   | Required | Description                                                                                                                                    |
+| ----------- | ----- | ------ | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `search`    | query | string | ❌       | Search text for note title or content                                                                                                          |
+| `tag`       | query | string | ❌       | Filter notes by tag (Available values: `Todo`, `Work`, `Personal`, `Meeting`, `Shopping`, `Ideas`, `Travel`, `Finance`, `Health`, `Important`) |
+| `page`      | query | number | ❌       | Page number (Integer, default value: `1`)                                                                                                      |
+| `perPage`   | query | number | ❌       | Notes per page (Integer, default value: `10`)                                                                                                  |
+| `sortBy`    | query | string | ❌       | Sort by any object field (Default value: `'_id'`)                                                                                              |
+| `sortOrder` | query | string | ❌       | Sort `'asc'` or `'desc'` (Default value: `'desc'`)                                                                                             |
+
+### Request Body
+
+_No request body._
+
+### Responses
+
+| Status | Description                             |
+| ------ | --------------------------------------- |
+| `200`  | Successfully fetched list of notes      |
+| `401`  | Unauthorized - missing or invalid token |
+
+<details>
+<summary><code>200</code> - Success</summary>
+
+```json
+{
+  "page": 1,
+  "perPage": 10,
+
+  "totalNotes": 1,
+  "totalPages": 1,
+
+  "notes": [
+    {
+      "title": "Note",
+      "content": "Made by Cool Name",
+      "tag": "Personal",
+
+      "createdAt": "2026-02-22T17:07:06.708Z",
+      "updatedAt": "2026-02-22T17:07:06.708Z",
+
+      "_id": "1111b1111bbbbb1111bb1111",
+      "id": "1111b1111bbbbb1111bb1111"
+
+      "userId": "0000a0000aaaaa0000aa0000",
+    }
+  ]
+}
+```
+
+</details>
+
+---
+
+---
+
 _Last updated: 2026-02-22_
