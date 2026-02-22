@@ -6,10 +6,10 @@ import { deleteAllNotes, deleteDraftById } from '../services/notes.js';
 import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
 
 export const getUserController = async (req, res) => {
-  const user = await userService.getUserById(req.user._id);
+  const user = req.user;
 
   if (!user) {
-    throw createHttpError(404, 'User not found');
+    throw createHttpError(401);
   }
 
   res.status(200).json(user);
@@ -25,7 +25,7 @@ export const updateUserController = async (req, res) => {
   const user = userService.updateUserById(req.user._id, req.body);
 
   if (!user) {
-    throw createHttpError(404, 'User not found');
+    throw createHttpError(401);
   }
 
   res.status(200).json(user);
@@ -42,6 +42,10 @@ export const updateUserAvatarController = async (req, res) => {
   const user = await userService.updateUserById(req.user._id, {
     avatar: result.secure_url,
   });
+
+  if (!user) {
+    throw createHttpError(401);
+  }
 
   res.status(200).json({ url: user.avatar });
 };
