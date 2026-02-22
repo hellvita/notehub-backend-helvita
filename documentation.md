@@ -98,6 +98,8 @@ _No parameters._
 | `email`    | string | ✅       | User email                  |
 | `password` | string | ✅       | User password (min 6 chars) |
 
+> _Example request schema:_
+
 ```json
 {
   "email": "example@mail.com",
@@ -131,7 +133,7 @@ _No parameters._
 }
 ```
 
-#### Headers:
+**Headers:**
 
 | Name         | Type   | Description                                                                           |
 | ------------ | ------ | ------------------------------------------------------------------------------------- |
@@ -182,6 +184,8 @@ _No parameters._
 | `email`    | string | ✅       | User email                  |
 | `password` | string | ✅       | User password (min 6 chars) |
 
+> _Example request schema:_
+
 ```json
 {
   "email": "example@mail.com",
@@ -215,7 +219,7 @@ _No parameters._
 }
 ```
 
-#### Headers:
+**Headers:**
 
 | Name         | Type   | Description                                                |
 | ------------ | ------ | ---------------------------------------------------------- |
@@ -271,7 +275,7 @@ _No request body._
 <details>
 <summary><code>204</code> - Success</summary>
 
-#### Headers:
+**Headers:**
 
 | Name         | Type   | Description                                                  |
 | ------------ | ------ | ------------------------------------------------------------ |
@@ -356,6 +360,8 @@ _No parameters._
 | ------------------------------------ |
 | **_\* at least one field required_** |
 
+> _Example request schema:_
+
 ```json
 {
   "username": "new cool name"
@@ -431,6 +437,8 @@ _No parameters._
 | Field    | Type | Required | Description                                           |
 | -------- | ---- | -------- | ----------------------------------------------------- |
 | `avatar` | file | ✅       | User profile picture (JPEG/JPG/PNG/GIF/WEBP, max 2MB) |
+
+> _Example request URL:_
 
 ```bash
 curl -X POST https://notehub-helvita-api.onrender.com/users/me/avatar \
@@ -585,6 +593,8 @@ GET /notes/:noteId
 | -------- | ---- | ------ | -------- | ------------------ |
 | `noteId` | path | string | ✅       | The ID of the note |
 
+> _Example request URL:_
+
 ```bash
 curl -X GET https://notehub-helvita-api.onrender.com/notes/1111b1111bbbbb1111bb1111
 ```
@@ -715,6 +725,8 @@ _No parameters._
 | `content` | string | ❌       | Note content (Default value: `''`)                                                                                                                         |
 | `tag`     | string | ❌       | Note tag (Available values: `Todo`, `Work`, `Personal`, `Meeting`, `Shopping`, `Ideas`, `Travel`, `Finance`, `Health`, `Important`. Default value: `Todo`) |
 
+> _Example request schema:_
+
 ```json
 {
   "title": "Cinema, 4pm",
@@ -787,6 +799,8 @@ PATCH /notes/:noteId
 | -------- | ---- | ------ | -------- | ------------------ |
 | `noteId` | path | string | ✅       | The ID of the note |
 
+> _Example request URL:_
+
 ```bash
 curl -X PATCH https://notehub-helvita-api.onrender.com/notes/3333d3333ddddd3333dd3333
 ```
@@ -804,6 +818,8 @@ curl -X PATCH https://notehub-helvita-api.onrender.com/notes/3333d3333ddddd3333d
 |                                      |
 | ------------------------------------ |
 | **_\* at least one field required_** |
+
+> _Example request schema:_
 
 ```json
 {
@@ -889,6 +905,8 @@ _No parameters._
 | ------------------------------------ |
 | **_\* at least one field required_** |
 
+> _Example request schema:_
+
 ```json
 {
   "tag": "Ideas"
@@ -960,6 +978,8 @@ DELETE /notes/:noteId
 | Name     | In   | Type   | Required | Description        |
 | -------- | ---- | ------ | -------- | ------------------ |
 | `noteId` | path | string | ✅       | The ID of the note |
+
+> _Example request URL:_
 
 ```bash
 curl -X DELETE https://notehub-helvita-api.onrender.com/notes/1111b1111bbbbb1111bb1111
