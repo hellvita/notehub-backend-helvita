@@ -680,6 +680,84 @@ _No request body._
 
 </details>
 
+## Create Note
+
+Create a new note.
+
+```
+POST /notes
+```
+
+### Parameters
+
+_No parameters._
+
+### Request Body
+
+**Content-Type:** `application/json`
+
+| Field     | Type   | Required | Description                                                                                                                                                |
+| --------- | ------ | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `title`   | string | ✅       | Note title                                                                                                                                                 |
+| `content` | string | ❌       | Note content (Default value: `''`)                                                                                                                         |
+| `tag`     | string | ❌       | Note tag (Available values: `Todo`, `Work`, `Personal`, `Meeting`, `Shopping`, `Ideas`, `Travel`, `Finance`, `Health`, `Important`. Default value: `Todo`) |
+
+```json
+{
+  "title": "Cinema, 4pm",
+  "tag": "Meeting"
+}
+```
+
+### Responses
+
+| Status | Description                                  |
+| ------ | -------------------------------------------- |
+| `201`  | Note created successfully                    |
+| `400`  | Validation error - invalid or missing fields |
+| `401`  | Unauthorized - missing or invalid token      |
+
+<details>
+<summary><code>201</code> - Created</summary>
+
+```json
+{
+  "title": "Cinema, 4pm",
+  "content": "",
+  "tag": "Meeting",
+
+  "createdAt": "2026-02-22T18:13:49.127Z",
+  "updatedAt": "2026-02-22T18:13:49.127Z",
+
+  "_id": "3333d3333ddddd3333dd3333",
+  "id": "3333d3333ddddd3333dd3333"
+
+  "userId": "0000a0000aaaaa0000aa0000",
+}
+```
+
+</details>
+
+<details>
+<summary><code>400</code> - Validation Error</summary>
+
+```json
+{
+  "statusCode": 400,
+  "error": "Bad Request",
+  "message": "Validation failed",
+  "validation": {
+    "body": {
+      "source": "body",
+      "keys": ["tag"],
+      "message": "\"tag\" must be one of [Todo, Work, Personal, Meeting, Shopping, Ideas, Travel, Finance, Health, Important]"
+    }
+  }
+}
+```
+
+</details>
+
 ---
 
 ---
