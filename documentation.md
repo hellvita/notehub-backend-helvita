@@ -116,14 +116,16 @@ _No parameters._
 
 ```json
 {
-  "_id": "0000a0000aaaaa0000aa0000",
-  "id": "0000a0000aaaaa0000aa0000"
   "email": "example@mail.com",
   "username": "example",
   "avatar": "https://res.cloudinary.com/dtzkjc68z/image/upload/v1771176027/notehub-helvita/avatars/default/nqbgcatljocysnj7jviq.jpg",
   "notesAmount": 0,
+
   "createdAt": "2026-02-21T17:16:54.759Z",
   "updatedAt": "2026-02-21T17:16:54.759Z",
+
+  "_id": "0000a0000aaaaa0000aa0000",
+  "id": "0000a0000aaaaa0000aa0000"
 }
 ```
 
@@ -196,14 +198,16 @@ _No parameters._
 
 ```json
 {
-  "_id": "0000a0000aaaaa0000aa0000",
-  "id": "0000a0000aaaaa0000aa0000"
   "email": "example@mail.com",
   "username": "example",
   "avatar": "https://res.cloudinary.com/dtzkjc68z/image/upload/v1771176027/notehub-helvita/avatars/default/nqbgcatljocysnj7jviq.jpg",
   "notesAmount": 0,
+
   "createdAt": "2026-02-21T17:16:54.759Z",
   "updatedAt": "2026-02-21T17:16:54.759Z",
+
+  "_id": "0000a0000aaaaa0000aa0000",
+  "id": "0000a0000aaaaa0000aa0000"
 }
 ```
 
@@ -301,18 +305,100 @@ _No request body._
 
 ```json
 {
-  "_id": "0000a0000aaaaa0000aa0000",
-  "id": "0000a0000aaaaa0000aa0000"
   "email": "example@mail.com",
   "username": "example",
   "avatar": "https://res.cloudinary.com/dtzkjc68z/image/upload/v1771176027/notehub-helvita/avatars/default/nqbgcatljocysnj7jviq.jpg",
   "notesAmount": 0,
+
   "createdAt": "2026-02-21T17:16:54.759Z",
   "updatedAt": "2026-02-21T17:16:54.759Z",
+
+  "_id": "0000a0000aaaaa0000aa0000",
+  "id": "0000a0000aaaaa0000aa0000"
 }
 ```
 
-## </details>
+</details>
+
+## Update User
+
+Update the current user profile.
+
+```
+PATCH /users/me
+```
+
+### Parameters
+
+_No parameters._
+
+### Request Body
+
+| Field         | Type   | Required | Description                       |
+| ------------- | ------ | -------- | --------------------------------- |
+| `email`       | string | ❌\*     | User email                        |
+| `username`    | string | ❌\*     | User name                         |
+| `avatar`      | string | ❌\*     | User profile picture URL          |
+| `password`    | string | ❌\*     | User password (min 6 chars)       |
+| `notesAmount` | number | ❌\*     | User notes amount (integer, >= 0) |
+
+|                                      |
+| ------------------------------------ |
+| **_\* at least one field required_** |
+
+```json
+{
+  "username": "new cool name"
+}
+```
+
+### Responses
+
+| Status | Description                                   |
+| ------ | --------------------------------------------- |
+| `200`  | Successfully updated user profile             |
+| `400`  | Validation error - invalid or missing fields  |
+| `401`  | Unauthorized - invalid or missing credentials |
+
+<details>
+<summary><code>200</code> - Success</summary>
+
+```json
+{
+  "email": "example@mail.com",
+  "username": "new cool name",
+  "avatar": "https://res.cloudinary.com/dtzkjc68z/image/upload/v1771176027/notehub-helvita/avatars/default/nqbgcatljocysnj7jviq.jpg",
+  "notesAmount": 0,
+
+  "createdAt": "2026-02-21T17:16:54.759Z",
+  "updatedAt": "2026-02-21T17:16:54.759Z",
+
+  "_id": "0000a0000aaaaa0000aa0000",
+  "id": "0000a0000aaaaa0000aa0000"
+}
+```
+
+</details>
+
+<details>
+<summary><code>400</code> - Validation Error</summary>
+
+```json
+{
+  "statusCode": 400,
+  "error": "Bad Request",
+  "message": "Validation failed",
+  "validation": {
+    "body": {
+      "source": "body",
+      "keys": ["password"],
+      "message": "\"password\" length must be at least 6 characters long"
+    }
+  }
+}
+```
+
+</details>
 
 ---
 
