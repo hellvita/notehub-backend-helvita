@@ -473,6 +473,29 @@ curl -X POST https://notehub-helvita-api.onrender.com/users/me/avatar \
 
 </details>
 
+## Delete User
+
+Delete the current user account.
+
+```
+DELETE /users/me
+```
+
+### Parameters
+
+_No parameters._
+
+### Request Body
+
+_No request body._
+
+### Responses
+
+| Status | Description                             |
+| ------ | --------------------------------------- |
+| `204`  | Account deleted successfully            |
+| `401`  | Unauthorized - missing or invalid token |
+
 ---
 
 ---
