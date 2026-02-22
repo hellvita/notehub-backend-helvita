@@ -758,6 +758,94 @@ _No parameters._
 
 </details>
 
+## Update Note
+
+Update an existing note by ID.
+
+```
+PATCH /notes/:noteId
+```
+
+### Parameters
+
+| Name     | In   | Type   | Required | Description        |
+| -------- | ---- | ------ | -------- | ------------------ |
+| `noteId` | path | string | ✅       | The ID of the note |
+
+```bash
+curl -X PATCH https://notehub-helvita-api.onrender.com/notes/3333d3333ddddd3333dd3333
+```
+
+### Request Body
+
+**Content-Type:** `application/json`
+
+| Field     | Type   | Required | Description                                                                                                                         |
+| --------- | ------ | -------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| `title`   | string | ❌\*     | Note title                                                                                                                          |
+| `content` | string | ❌\*     | Note content                                                                                                                        |
+| `tag`     | string | ❌\*     | Note tag (Available values: `Todo`, `Work`, `Personal`, `Meeting`, `Shopping`, `Ideas`, `Travel`, `Finance`, `Health`, `Important`) |
+
+|                                      |
+| ------------------------------------ |
+| **_\* at least one field required_** |
+
+```json
+{
+  "content": "Wait at the bus station near the cinema"
+}
+```
+
+### Responses
+
+| Status | Description                                   |
+| ------ | --------------------------------------------- |
+| `200`  | Successfully updated note                     |
+| `400`  | Validation error - invalid or missing fields  |
+| `401`  | Unauthorized - invalid or missing credentials |
+| `404`  | Not found - invalid note ID or user ID        |
+
+<details>
+<summary><code>200</code> - Success</summary>
+
+```json
+{
+  "title": "Cinema, 4pm",
+  "content": "Wait at the bus station near the cinema",
+  "tag": "Meeting",
+
+  "createdAt": "2026-02-22T18:13:49.127Z",
+  "updatedAt": "2026-02-22T18:26:30.319Z",
+
+  "_id": "3333d3333ddddd3333dd3333",
+  "id": "3333d3333ddddd3333dd3333"
+
+  "userId": "0000a0000aaaaa0000aa0000",
+}
+```
+
+</details>
+
+<details>
+<summary><code>400</code> - Validation Error</summary>
+
+```json
+{
+  "statusCode": 400,
+  "error": "Bad Request",
+  "message": "Validation failed",
+  "validation": {
+    "body": {
+      "source": "body",
+      "keys": [""],
+      "message": "\"value\" must have at least 1 key"
+    }
+  }
+}
+```
+
+</details>
+
 ---
 
 ---
