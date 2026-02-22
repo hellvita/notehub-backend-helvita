@@ -22,7 +22,7 @@ export const updateUserController = async (req, res) => {
     req.body.password = hashedPassword;
   }
 
-  const user = userService.updateUserById(req.user._id, req.body);
+  const user = await userService.updateUserById(req.user._id, req.body);
 
   if (!user) {
     throw createHttpError(401);
