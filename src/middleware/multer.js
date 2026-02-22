@@ -1,4 +1,5 @@
 import multer from 'multer';
+import createHttpError from 'http-errors';
 
 export const upload = multer({
   storage: multer.memoryStorage(),
@@ -16,9 +17,11 @@ export const upload = multer({
       cb(null, true);
     } else {
       cb(
-        new Error(
-          'Invalid file type. Only JPEG, PNG, GIF, and WebP are allowed.',
+        createHttpError(
+          400,
+          'Invalid file type. Only JPEG, PNG, GIF and WebP are allowed',
         ),
+
         false,
       );
     }
