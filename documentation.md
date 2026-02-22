@@ -561,6 +561,79 @@ _No request body._
 
 </details>
 
+## Get Note
+
+Get a single note by ID.
+
+```
+GET /notes/:noteId
+```
+
+### Parameters
+
+| Name     | In   | Type   | Required | Description        |
+| -------- | ---- | ------ | -------- | ------------------ |
+| `noteId` | path | string | ✅       | The ID of the note |
+
+```bash
+curl -X GET https://notehub-helvita-api.onrender.com/notes/1111b1111bbbbb1111bb1111
+```
+
+### Request Body
+
+_No request body._
+
+### Responses
+
+| Status | Description                               |
+| ------ | ----------------------------------------- |
+| `200`  | Successfully fetched the note             |
+| `400`  | Validation error - invalid note ID format |
+| `401`  | Unauthorized - missing or invalid token   |
+| `404`  | Not found - invalid note ID or user ID    |
+
+<details>
+<summary><code>200</code> - Success</summary>
+
+```json
+{
+
+  "title": "Note",
+  "content": "Made by Cool Name",
+  "tag": "Personal",
+
+  "createdAt": "2026-02-22T17:07:06.708Z",
+  "updatedAt": "2026-02-22T17:07:06.708Z",
+
+  "_id": "1111b1111bbbbb1111bb1111",
+  "id": "1111b1111bbbbb1111bb1111"
+
+  "userId": "0000a0000aaaaa0000aa0000",
+}
+```
+
+</details>
+
+<details>
+<summary><code>400</code> - Validation Error</summary>
+
+```json
+{
+  "statusCode": 400,
+  "error": "Bad Request",
+  "message": "Validation failed",
+  "validation": {
+    "params": {
+      "source": "params",
+      "keys": ["noteId"],
+      "message": "Invalid id format"
+    }
+  }
+}
+```
+
+</details>
+
 ---
 
 ---
