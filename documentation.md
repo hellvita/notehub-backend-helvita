@@ -91,6 +91,8 @@ _No parameters._
 
 ### Request Body
 
+**Content-Type:** `application/json`
+
 | Field      | Type   | Required | Description                 |
 | ---------- | ------ | -------- | --------------------------- |
 | `email`    | string | ✅       | User email                  |
@@ -172,6 +174,8 @@ POST /auth/login
 _No parameters._
 
 ### Request Body
+
+**Content-Type:** `application/json`
 
 | Field      | Type   | Required | Description                 |
 | ---------- | ------ | -------- | --------------------------- |
@@ -334,6 +338,8 @@ _No parameters._
 
 ### Request Body
 
+**Content-Type:** `application/json`
+
 | Field         | Type   | Required | Description                       |
 | ------------- | ------ | -------- | --------------------------------- |
 | `email`       | string | ❌\*     | User email                        |
@@ -395,6 +401,73 @@ _No parameters._
       "message": "\"password\" length must be at least 6 characters long"
     }
   }
+}
+```
+
+</details>
+
+## Update User Avatar
+
+Update the avatar of the current user profile.
+
+```
+PATCH /users/me/avatar
+```
+
+### Parameters
+
+_No parameters._
+
+### Request Body
+
+**Content-Type:** `multipart/form-data`
+
+| Field    | Type | Required | Description                                           |
+| -------- | ---- | -------- | ----------------------------------------------------- |
+| `avatar` | file | ✅       | User profile picture (JPEG/JPG/PNG/GIF/WEBP, max 2MB) |
+
+```bash
+curl -X POST https://notehub-helvita-api.onrender.com/users/me/avatar \
+  -F "avatar=@/path/to/photo.jpg"
+```
+
+### Responses
+
+| Status | Description                                          |
+| ------ | ---------------------------------------------------- |
+| `200`  | Successfully updated user avatar                     |
+| `400`  | Validation error - missing file or invalid file type |
+| `401`  | Unauthorized - invalid or missing credentials        |
+| `500`  | Internal Server Error - invalid file size            |
+
+<details>
+<summary><code>200</code> - Success</summary>
+
+```json
+{
+  "url": "https://res.cloudinary.com/dtzkjc68z/image/upload/v1771768351/notehub-helvita/avatars/sqcx2nkw4c0pfwukmztk.jpg"
+}
+```
+
+</details>
+
+<details>
+<summary><code>400</code> - Validation Error</summary>
+
+```json
+{
+  "message": "Invalid file type. Only JPEG, PNG, GIF and WebP are allowed"
+}
+```
+
+</details>
+
+<details>
+<summary><code>500</code> - Internal Server Error</summary>
+
+```json
+{
+  "message": "File too large"
 }
 ```
 
